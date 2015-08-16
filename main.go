@@ -22,15 +22,20 @@ func init() {
 
 	go func() {
 		<-signals
-		w.Watcher.Exit <- true
-		w.Watcher.Close()
+		w.Files.Close()
+		w.Dirs.Close()
 		exit <- true
 	}()
 }
 
 func main() {
 
-	w.Watcher.Add("/Users/puntme/heh")
+	w.Files.Add("/Users/puntme/heh")
+	w.Files.Add("/Users/puntme/test.go")
+	w.Files.Add("/Users/puntme/fakeballs")
+
+	w.Dirs.Add("/Users/puntme/")
+	w.Dirs.Add("/Users/asfawef/")
 
 	<-exit
 
